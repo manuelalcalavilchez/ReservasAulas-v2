@@ -3,122 +3,164 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.iesalandalus.programacion.reservasaulas.modelo;
+package org.iesalandalus.programacion.reservasaulas.controlador;
 
 import java.util.List;
 import javax.naming.OperationNotSupportedException;
-import org.iesalandalus.programacion.reservasaulas.modelo.dao.Aulas;
-import org.iesalandalus.programacion.reservasaulas.modelo.dao.Profesores;
-import org.iesalandalus.programacion.reservasaulas.modelo.dao.Reservas;
+import org.iesalandalus.programacion.reservasaulas.controlador.IControladorReservasAulas;
+import org.iesalandalus.programacion.reservasaulas.modelo.IModeloReservasAulas;
+import org.iesalandalus.programacion.reservasaulas.modelo.ModeloReservasAulas;
 import org.iesalandalus.programacion.reservasaulas.modelo.dominio.Aula;
 import org.iesalandalus.programacion.reservasaulas.modelo.dominio.permanencia.Permanencia;
 import org.iesalandalus.programacion.reservasaulas.modelo.dominio.Profesor;
 import org.iesalandalus.programacion.reservasaulas.modelo.dominio.Reserva;
-import org.iesalandalus.programacion.reservasaulas.vista.Consola;
-import org.iesalandalus.programacion.reservasaulas.vista.Opcion;
 import org.iesalandalus.programacion.reservasaulas.vista.VistaReservasAulas;
+import org.iesalandalus.programacion.reservasaulas.vista.IVistaReservasAulas;
 
-//prueba para comprobacion de paquetes
+
 /**
  *
  * @author Manuel
  */
-public class ControladorReservasAulas {
+public class ControladorReservasAulas implements IControladorReservasAulas {
     
-        private ModeloReservasAulas modelo;
-        private VistaReservasAulas vista;
-                        
+       
+       //public IModeloReservasAulas modelo;
+       public IVistaReservasAulas vista;
+       public IModeloReservasAulas modelo;                
 	
 	
-	public ControladorReservasAulas() {
-		modelo= new ModeloReservasAulas();
-                vista= new VistaReservasAulas();
+	public ControladorReservasAulas(IModeloReservasAulas modelo, IVistaReservasAulas vista) {
+		this.modelo = modelo;
+		this.vista = vista;
+		vista.setControlador(this);
 	}
-	
+
+    /*public ControladorReservasAulas(IModeloReservasAulas modelo, IVistaReservasAulas vista) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }*/
+
+        
+    @Override
+        public void comenzar(){
+            this.vista.comenzar();
+        }
+       
+     //@Override
+        public void salir(){
+            vista.salir();
+        }    
+   /*     
+    @Override
 	public List<Aula> getAulas() {
-		return modelo.getAulas();
+		return vista.getAulas();
 	}
-	
+        */
+        /*
+    @Override
 	public int getNumAulas() {
 		return modelo.getNumAulas();
 	}
-	
+	*/
+        
+    @Override
 	public List<String> representarAulas() {
 		return modelo.representarAulas();
 	}
 	
+    @Override
 	public Aula buscarAula(Aula buscar) {
 		return modelo.buscarAula(buscar);
 	}
 	
+    @Override
 	public void insertarAula(Aula insertar) throws OperationNotSupportedException {
 		modelo.insertarAula(insertar);
 	}
 	
+    @Override
 	public void borrarAula(Aula borrar) throws OperationNotSupportedException {
 		modelo.borrarAula(borrar);
 	}
-	
+	/*
+    @Override
 	public List<Profesor> getProfesores() {
 		return modelo.getProfesores();
 	}
-	
+	*/
+        /*
+    @Override
 	public int getNumProfesores() {
 		return modelo.getNumProfesores();
 	}
-	
+	*/
+    @Override
 	public List<String> representarProfesores() {
 		return modelo.representarProfesores();
 	}
 	
+    @Override
 	public Profesor buscarProfesor(Profesor buscar) {
 		return modelo.buscarProfesor(buscar);
 	}
 	
+    @Override
 	public void insertarProfesor(Profesor insertar) throws OperationNotSupportedException {
 		modelo.insertarProfesor(insertar);
 	}
 	
+    @Override
 	public void borrarProfesor(Profesor borrar) throws OperationNotSupportedException {
 		modelo.borrarProfesor(borrar);
 	}
-	
+	/*
+    @Override
 	public List<Reserva> getReservas() {
 		return modelo.getReservas();
 	}
-	
+	*/
+        /*
+    @Override
 	public int getNumReservas() {
 		return modelo.getNumReservas();
 	}
-	
+	*/
+    @Override
 	public List<String> representarReservas() {
 		return modelo.representarReservas();
 	}
-	
+	/*
+    @Override
 	public Reserva buscarReserva(Reserva buscar) {
 		return modelo.buscarReserva(buscar);
 	}
-	
+	*/
+    @Override
 	public void realizarReserva(Reserva realizar) throws OperationNotSupportedException {
 		modelo.realizarReserva(realizar);
 	}
 	
+    @Override
 	public void anularReserva(Reserva anular) throws OperationNotSupportedException {
 		modelo.anularReserva(anular);
 	}
 	
+    @Override
 	public List<Reserva> getReservasAula(Aula aula) {
 		return modelo.getReservasAula(aula);
 	}
 	
+    @Override
 	public List<Reserva> getReservasProfesor(Profesor profesor) {
 		return modelo.getReservasProfesor(profesor);
 	}
 	
+    @Override
 	public List<Reserva> getReservasPermanencia(Permanencia permanencia) {
 		return modelo.getReservasPermanencia(permanencia);
 	}
 	
+    @Override
 	public boolean consultarDisponibilidad(Aula aula, Permanencia permanencia) {
 		return modelo.consultarDisponibilidad(aula, permanencia);
 	}

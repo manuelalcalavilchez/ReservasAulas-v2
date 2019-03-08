@@ -5,9 +5,13 @@
  */
 package org.iesalandalus.programacion.reservasaulas.modelo.dominio;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
+import org.iesalandalus.programacion.reservasaulas.modelo.dominio.permanencia.Permanencia;
 import org.iesalandalus.programacion.reservasaulas.modelo.dominio.permanencia.PermanenciaPorHora;
+import org.iesalandalus.programacion.reservasaulas.modelo.dominio.permanencia.PermanenciaPorTramo;
+
 
 /**
  *
@@ -43,13 +47,16 @@ public class Reserva {
 		}
         
          if (permanencia instanceof PermanenciaPorHora){
-             this.permanencia= new PermanenciaPorHora(PermanenciaPorHora(permanenciaPorHora));//se hace un casting
-             
-         if (permanencia instanceof PermanenciaP) //ctrl + espacio y no me permite permanencia por tramo   
+             this.permanencia= new PermanenciaPorHora((PermanenciaPorHora) permanencia);//se hace un casting
+           
+         }
+         if (permanencia instanceof PermanenciaPorTramo) {  
+         this.permanencia = new PermanenciaPorTramo((PermanenciaPorTramo) permanencia);
+         
          }
          
-       // this.permanencia = new Permanencia(permanencia);
-    }
+       }
+    
     //getter
 
     public Profesor getProfesor() {
@@ -61,12 +68,15 @@ public class Reserva {
     }
 
     public Permanencia getPermanencia() {
-        if (permanencia instanceof PermanenciaPorHora){
-            return new PermanenciaPorHora(LocalDate.MIN, LocalTime.NOON);
-        }
+        if (permanencia instanceof PermanenciaPorHora)
+          return new PermanenciaPorHora((PermanenciaPorHora) permanencia);
+        else
+        //if (permanencia instanceof PermanenciaPorTramo)
+          return new PermanenciaPorTramo ((PermanenciaPorTramo) permanencia); 
+    }    
         
-        return new Permanencia(permanencia);
-    }
+       
+    
     
     //método comparador
      @Override
@@ -104,13 +114,14 @@ public class Reserva {
     //método toString
     
      @Override
-    public String toString() {
-        return "[profesor=" + profesor + ", aula=" + aula + ", permanencia=" + permanencia + "]";
-    }
+   	public String toString() {
+		return "[profesor=" + profesor + ", aula=" + aula + ", permanencia=" 
+                   + permanencia + ", puntos=" + getPuntos()+ "]";
+        }
     
     //contructores
 
-   public Reserva (Profesor profesor, Aula aula, PermanenciaPorTramo permanencia){
+   public Reserva (Profesor profesor, Aula aula, Permanencia permanencia){
        
        setProfesor(profesor);
        setAula(aula);
@@ -126,6 +137,9 @@ public class Reserva {
        setProfesor(reserva.profesor);
        setAula(reserva.aula);
        setPermanencia(reserva.permanencia);
+   }
+   public float getPuntos(){
+       return permanencia.getPuntos() + aula.getPuntos();
    }
 
    

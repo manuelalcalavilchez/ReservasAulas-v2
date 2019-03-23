@@ -133,7 +133,7 @@ public static String leerDia() {
 
 
 public static String leerHora() {
-		System.out.print("Introduce la hora (hh:mm):");
+		System.out.println("Introduce la hora (hh:mm):");
 		return Entrada.cadena();
 	}
 

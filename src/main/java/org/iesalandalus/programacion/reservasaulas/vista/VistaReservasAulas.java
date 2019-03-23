@@ -149,7 +149,7 @@ public class VistaReservasAulas implements IVistaReservasAulas {
                 controlador.insertarProfesor(profesor);
             
                 System.out.println("Profesor insertado correctamente.");
-            } catch (OperationNotSupportedException ex) {
+              } catch (OperationNotSupportedException | IllegalArgumentException ex) {
                 Logger.getLogger(VistaReservasAulas.class.getName()).log(Level.SEVERE, null, ex);
             }
            
@@ -249,12 +249,7 @@ private Reserva leerReserva(Profesor profesor) {
                                         Logger.getLogger(VistaReservasAulas.class.getName()).log(Level.SEVERE, null, ex);
                                     }
 				}
-                                try {
-                                    controlador.realizarReserva(reserva);
-                                } catch (OperationNotSupportedException ex) {
-                            Logger.getLogger(VistaReservasAulas.class.getName()).log(Level.SEVERE, null, ex);
-            }
-			System.out.println("Reserva realizada correctamente.");
+                                
 
 		}
 	}
@@ -283,10 +278,11 @@ private Reserva leerReserva(Profesor profesor) {
 		else {
 			try {
 				controlador.anularReserva(reserva);
+                                System.out.println("Reserva anulada correctamente.");
 			} catch (OperationNotSupportedException e) {
 				System.out.println(ERROR + e.getMessage());
 			}
-			System.out.println("Reserva anulada correctamente.");
+		
 		}
 	}
 
